@@ -1,17 +1,13 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 
-const dbUri = "mongodb://localhost:27017/"
+const dbUri = "mongodb://127.0.0.1:27017/testing"
 
 const connectDB = async () => {
   try {
-   await mongoose.connect(dbUri, {dbName: 'products-api'})
-    .then(() => {
-      console.log('Database connected');
-    }).catch((error) => {
-      console.log('Error connecting to database', error)
-    })
+    await mongoose.connect(dbUri)
   } catch (error) {
     console.log(error)
+    throw new Error("Error connecting to database")
   }
 }
 

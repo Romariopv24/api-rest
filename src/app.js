@@ -1,28 +1,31 @@
-import express from 'express'
-import morgan from 'morgan'
-import pkg from '../package.json'
-import productsRoutes from './routes/products.routes'
-import connectDB from './database'
-
+import express from "express"
+import morgan from "morgan"
+import connectDB from "./database"
+import productsRoutes from "./routes/products.routes"
 const app = express()
-app.use(morgan('dev'))
-app.use(express.json())
 
+const server = () => {
+  app.use(morgan("dev"))
+  app.use(express.json())
 
-
-app.get('/', (req, res) => {
+  app.get("/", (req, res) => {
     res.json({
-        name: app.get('pkg').name,
-        author: app.get('pkg').author,
-        description: app.get('pkg').description,
-        version: app.get('pkg').version
+      name: app.get("pkg").name,
+      author: app.get("pkg").author,
+      description: app.get("pkg").description,
+      version: app.get("pkg").version
     })
-})
+  })
 
-connectDB().then(() => {
-    console.log('Database connected');
-}).catch(error => console.log('Error connecting to database', error))
+  app.listen(3010)
+  console.log("Server on port", 3010)
+  connectDB()
+    .then(() => {
+      console.log("Database connected")
+    })
+    .catch((error) => console.log("Error connecting to database", error))
 
-app.use('/products',productsRoutes)
+  app.use("/products", productsRoutes)
+}
 
-export default app
+export default server
