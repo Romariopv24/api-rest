@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 
-const dbUri = "mongodb://127.0.0.1:27017/testing"
+const dbUri = "mongodb://127.0.0.1:27017/api-rest"
 
 const connectDB = async () => {
   try {
